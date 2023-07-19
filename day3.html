@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>DAY-3</title>
+  <style>
+    #result{
+      width: 500px;
+      height: 300px;
+      margin: auto;
+      border-radius: 30px;
+      color: white;
+      font-size: 1.7rem;
+      border: 2px solid white;
+      padding-left: 30px;
+      
+    }
+    body{
+      background-color: rgba(2, 0, 3, 0.911);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="result"></div>
+  <script>
+    function getObject(obj) {
+      const marksMap = new Map()
+
+      for (const key in obj) {
+        const entry = obj[key]//0,1,2,3 entry
+        const marks = entry.marks
+        if (!marksMap.has(marks) || entry.age > marksMap.get(marks).age) {
+          marksMap.set(marks, {
+            age: entry.age,
+            name: entry.name,
+            marks: marks,
+          })
+        }
+      }
+      const resultObject = {}
+      let resultIndex = 0
+console.log(marksMap.entries());
+      for (const [marks, entry] of marksMap.entries()) {
+        resultObject[resultIndex] = {
+          age: entry.age,
+          name: entry.name,
+          marks: marks,
+        }
+        resultIndex++
+      }
+
+      return resultObject
+    }
+
+    const input = 
+      {
+      0: { age: 18, name: 'john', marks: '400' },
+      1: { age: 17, name: 'julie', marks: '400' },
+      2: { age: 16, name: 'Robin', marks: '200' },
+      3: { age: 16, name: 'Bella', marks: '300' },
+      4: { age: 16, name: 'john', marks: '250' },
+      5: { age: 15, name: 'julie', marks: '250' }
+     }
+
+    const result = getObject(input)
+    console.log(result)
+    const resultContainer = document.getElementById('result')
+    resultContainer.innerHTML = ''
+
+    for (const key in result) 
+    {
+      const entry = result[key]
+      const resultElement = document.createElement('p')
+      resultElement.textContent = `Name: ${entry.name}, Age: ${entry.age}, Marks: ${entry.marks}`
+      resultContainer.appendChild(resultElement)
+    }
+  </script>
+</body>
+
+</html>
